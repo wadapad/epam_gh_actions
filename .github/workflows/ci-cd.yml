@@ -23,6 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run unit tests
+        run: |
+          pytest
+
   build-docker-image:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -68,3 +72,16 @@ jobs:
         run: |
           trivy image wadapad/my-python-app:${{ github.sha }}
           # echo "${{ env.IMAGE_NAME }}" "${{ env.IMAGE_TAG }}"
+
+  performance-test:
+    needs: vulnerability-scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Upload performance test results
+        uses: ./actions/performance-test
+        with:
+          who-to-greet: Marat

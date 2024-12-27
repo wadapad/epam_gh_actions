@@ -1,10 +1,16 @@
-name: "Marats Custom Action"
-description: "An example of a custom GitHub Action"
+# action.yml
+name: "Hello World"
+description: "Greet someone and record the time"
 inputs:
-  name:
-    description: "Your name"
+  who-to-greet: # id of input
+    description: "Who to greet"
     required: true
-    default: "Marat"
+    default: "World"
+outputs:
+  time: # id of output
+    description: "The time we greeted you"
 runs:
-  using: "node12"
-  main: "index.js"
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.who-to-greet }}

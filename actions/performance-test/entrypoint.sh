@@ -1,2 +1,6 @@
-#!/bin/bash
-# add here your code for performance testing script
+#!/bin/sh -l
+
+echo "Hello $1"
+time=$(date)
+echo "time=$time" >> $GITHUB_OUTPUT
+
