@@ -1,1 +1,10 @@
-# add your code here.
+name: "Marats Custom Action"
+description: "An example of a custom GitHub Action"
+inputs:
+  name:
+    description: "Your name"
+    required: true
+    default: "Marat"
+runs:
+  using: "node12"
+  main: "index.js"
