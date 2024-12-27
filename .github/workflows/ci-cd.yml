@@ -48,8 +48,8 @@ jobs:
 
       - name: Push Docker image
         run: |
-          # docker push wadapad/$IMAGE_NAME:$IMAGE_TAG
-          echo wadapad/$IMAGE_NAME:$IMAGE_TAG
+          docker push wadapad/$IMAGE_NAME:$IMAGE_TAG
+          # echo wadapad/$IMAGE_NAME:$IMAGE_TAG
 
   vulnerability-scan:
     needs: build-docker-image
