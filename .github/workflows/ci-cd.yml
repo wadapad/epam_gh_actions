@@ -48,6 +48,9 @@ jobs:
       - name: Push Docker image
         run: |
           docker push wadapad/$IMAGE_NAME:${{ env.IMAGE_TAG }}
+        env:
+          IMAGE_NAME: $IMAGE_NAME
+          IMAGE_TAG: $IMAGE_TAG
 
   vulnerability-scan:
     needs: build-docker-image
