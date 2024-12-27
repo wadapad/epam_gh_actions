@@ -43,8 +43,24 @@ jobs:
           IMAGE_TAG=${{ github.sha }}
           docker build -t wadapad/$IMAGE_NAME:$IMAGE_TAG .
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
 
       - name: Push Docker image
         run: |
-          IMAGE_NAME=my-python-app
           docker push wadapad/$IMAGE_NAME:${{ env.IMAGE_TAG }}
+
+  vulnerability-scan:
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan Docker image
+        run: |
+          trivy image $IMAGE_NAME:${{ env.IMAGE_TAG }}
