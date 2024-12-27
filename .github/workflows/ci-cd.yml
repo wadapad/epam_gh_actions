@@ -66,5 +66,5 @@ jobs:
 
       - name: Scan Docker image
         run: |
-          trivy image my-python-app:${{ github.sha }}
+          trivy image wadapad/my-python-app:${{ github.sha }}
           # echo "${{ env.IMAGE_NAME }}" "${{ env.IMAGE_TAG }}"
